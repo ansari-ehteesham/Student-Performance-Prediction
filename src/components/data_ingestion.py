@@ -27,6 +27,7 @@ class DataIngestion:
                 os.makedirs(os.path.dirname(self.data_ingestion_config.test_dataset_path), exist_ok=True)
                 logging.info("Artifacts directory has been Created")
 
+            # Establishing Connection with MySQL
             mysql = mysql_connection_establishment(database_name="student")
             if mysql and mysql.is_connected():
                 result, columns_name = fetch_dataset(mysql_connection=mysql)
@@ -35,7 +36,7 @@ class DataIngestion:
             # splitting the dataset
             train, test = dataset_split(raw_dataset=raw_dataframe)
 
-            # saving the dataset
+            # saving the splitted dataset
             train.to_csv(self.data_ingestion_config.train_dataset_path, index=False, header=True)
             test.to_csv(self.data_ingestion_config.test_dataset_path, index=False, header=True)
 
