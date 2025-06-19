@@ -2,6 +2,11 @@ from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
 
+class TrainingPipeline:
+    def __init__(self):
+        pass
+
+
 
 if __name__ == "__main__":
     print("-"*25,"Data Ingestion Started","-"*25)

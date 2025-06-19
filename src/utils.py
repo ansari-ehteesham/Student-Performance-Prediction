@@ -72,3 +72,24 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise  CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as obj:
+            return dill.load(obj)
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def inserting_data_mysql(mysql, data):
+    if mysql.is_connected():
+        cursor = mysql.cursor()
+        add_data_query = (
+                "INSERT INTO secondary_table"
+                "(gender, race_ethnicity, parental_level_of_education, lunch, test_preparation, math_score, reading_score, writing_score) "
+                "VALUES (%(gender)s, %(race_ethnicity)s, %(parental_level_of_education)s, %(lunch)s, %(test_preparation)s, %(math_score)s, %(reading_score)s, %(writing_score)s)"
+            )
+        cursor.execute(add_data_query, data)
+        mysql.commit()
+        cursor.close()
+        mysql.close()
+        logging.info("Data has been uploaded to MySQL Database")
