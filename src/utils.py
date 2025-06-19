@@ -1,7 +1,8 @@
 import os
 import sys
-import mysql.connector
+import dill
 import pandas as pd
+import mysql.connector
 from dotenv import load_dotenv, dotenv_values
 from sklearn.model_selection import train_test_split
 
@@ -57,4 +58,16 @@ def dataset_split(raw_dataset):
 
         return X_train, X_test
     except Exception as e:
-        pass
+        raise CustomException(e, sys)
+
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+        logging.info("Model Dumping Successfully")
+
+    except Exception as e:
+        raise  CustomException(e, sys)

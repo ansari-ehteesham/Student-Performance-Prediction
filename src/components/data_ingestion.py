@@ -42,10 +42,10 @@ class DataIngestion:
 
             logging.info("Train and Test Data has been Stored Succesfully")
 
+            return (
+                self.data_ingestion_config.train_dataset_path,
+                self.data_ingestion_config.test_dataset_path,
+            )
+
         except Exception as e:
             raise CustomException(e, sys)
-        
-
-if __name__ == "__main__":
-    data_ingestion = DataIngestion()
-    data_ingestion.data_ingestion_initiate()
