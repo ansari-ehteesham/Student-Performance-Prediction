@@ -1,5 +1,6 @@
-from src.components.data_ingestion import DataIngestion, DataIngestionConfig
-from src.components.data_transformation import DataTrannsformationConfig, DataTransformation
+from src.components.data_ingestion import DataIngestion
+from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 
 if __name__ == "__main__":
@@ -12,3 +13,9 @@ if __name__ == "__main__":
     data_transforamtion = DataTransformation()
     train_arr, test_arr = data_transforamtion.initiate_data_transformation(train_path=train_path, test_path=test_path)
     print("-"*25,"Data Transformation Completed","-"*25)
+    
+    print("-"*25,"Model Training Started","-"*25)
+    model_trainer = ModelTrainer()
+    best_model = model_trainer.initiate_model_training(train_arr=train_arr, test_arr=test_arr)
+    print("Best Model -",best_model)
+    print("-"*25,"Model Training Completed","-"*25)

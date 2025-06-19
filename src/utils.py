@@ -50,13 +50,14 @@ def convert_dataset_as_dataframe(dataset, column):
     except Exception as e:
         raise CustomException(e, sys)
     
-def dataset_split(raw_dataset):
+def dataset_split(raw_dataset,):
     try:
         logging.info("Splitting Dataset into Train and Test Dataset")
+        
         X_train, X_test = train_test_split(raw_dataset, test_size=0.2, random_state=42)
-        logging.info(f"Successfully Splitted Train - {X_train.shape} Test - {X_test.shape}")
-
+        logging.info(f"Successfully Splitted Train and Test Dataset into 2 parts")
         return X_train, X_test
+
     except Exception as e:
         raise CustomException(e, sys)
 
