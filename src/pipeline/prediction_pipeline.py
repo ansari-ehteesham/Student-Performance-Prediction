@@ -10,6 +10,14 @@ class PredictionPipeline:
     def __init__(self):
         self.model_path:str = ModelTrainingConfig().trained_model_path
         self.preprocess_path :str = os.path.join("artifacts", "preprocess.pkl")
+        if not os.path.exists(self.model_path):
+            trained_model_list = [file for file in os.listdir(os.path.dirname(self.model_path)) if "model" in file]
+            self.model_path = os.path.join(
+                os.path.dirname(self.model_path),
+                max(trained_model_list)
+            )
+        
+        logging.info(f"{self.model_path} is using for Prediction")
 
     def prediction(self, df):
         try:

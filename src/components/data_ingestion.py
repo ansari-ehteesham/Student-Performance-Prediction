@@ -5,8 +5,7 @@ from dataclasses import dataclass
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import (mysql_connection_establishment, 
-                       fetch_dataset, 
+from src.utils import (fetch_dataset, 
                        convert_dataset_as_dataframe,
                        dataset_split)
 
@@ -19,7 +18,7 @@ class DataIngestion:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
 
-    def data_ingestion_initiate(self):
+    def data_ingestion_initiate(self, mysql):
         try:
             # creating directory
             if not (os.path.exists(self.data_ingestion_config.train_dataset_path)) or not (os.path.exists(self.data_ingestion_config.test_dataset_path)):
@@ -28,7 +27,6 @@ class DataIngestion:
                 logging.info("Artifacts directory has been Created")
 
             # Establishing Connection with MySQL
-            mysql = mysql_connection_establishment(database_name="student")
             if mysql and mysql.is_connected():
                 result, columns_name = fetch_dataset(mysql_connection=mysql)
             raw_dataframe = convert_dataset_as_dataframe(dataset=result, column=columns_name)

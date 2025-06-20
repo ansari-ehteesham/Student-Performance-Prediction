@@ -3,7 +3,7 @@ import sys
 import dill
 import pandas as pd
 import mysql.connector
-from dotenv import load_dotenv, dotenv_values
+from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 
 from src.exception import CustomException
@@ -16,7 +16,6 @@ def loading_env_varibales():
 
 def mysql_connection_establishment(database_name):
     try:
-
         loading_env_varibales()
         cnx = mysql.connector.connect(
             user = os.getenv("MYSQL_USER"),
@@ -37,7 +36,7 @@ def fetch_dataset(mysql_connection):
             mysql_query = cursor.execute("SELECT * FROM performance")
             columns_name = [i[0] for i in cursor.description]
             all_rows = cursor.fetchall()
-            mysql_connection.close()
+            cursor.close()
         return all_rows, columns_name
     except Exception as e:
         raise CustomException(e, sys)
@@ -91,5 +90,4 @@ def inserting_data_mysql(mysql, data):
         cursor.execute(add_data_query, data)
         mysql.commit()
         cursor.close()
-        mysql.close()
         logging.info("Data has been uploaded to MySQL Database")
