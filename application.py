@@ -61,7 +61,7 @@ def model_training():
     count = cursor.fetchone()[0]
     cursor.close()
 
-    if count < 15:
+    if count < 1:
         return jsonify(status="error", message="Not enough data to train"), 400
 
     train_piepline = TrainingPipeline()
