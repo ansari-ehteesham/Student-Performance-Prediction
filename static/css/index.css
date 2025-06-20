@@ -1,0 +1,106 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Style */
+body{
+    background: #ADA996;  
+    background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  
+    background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); 
+
+}
+
+#main-header{
+    box-shadow: 8px 5px 5px #ADA996;
+        display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#nav-bar{
+    /* border: 2px solid black; */
+    /* width: 100%; */
+    min-height: 8vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#nav-bar-list{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 10px;
+    margin: 0 10px;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.nav-list-point > a{
+    /* list-style-type: none; */
+font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
+
+  transition: text-shadow 0.6s linear 0s ;
+}
+
+.nav-list-point > a:hover{
+    text-shadow: 3px 4px 4px grey;
+}
+
+#logo{
+    padding: 5px;
+    margin: 0 10px;
+}
+
+#logo-head{
+    font-family: "Michroma", sans-serif;
+    font-weight: bolder;
+    font-style: normal;
+    font-size:xx-large ;
+}
+
+#logo-small-text{
+    font-size: 0.85rem;
+}
+
+/* main tag */
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+#main-body{
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title-text{
+    font-family: "Edu NSW ACT Hand Pre", cursive;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: xxx-large;
+}
+
+#sub-text{
+    font-family: "Inconsolata", monospace;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}

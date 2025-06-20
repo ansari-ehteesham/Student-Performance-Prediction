@@ -22,7 +22,7 @@ def index():
 @app.route("/prediction", methods=["GET", "POST"])
 def predict_datapoint():
     if request.method == "GET":
-        return render_template('home.html')
+        return render_template('prediction.html')
     else:
         data = {
             "gender": request.form.get('gender'),
@@ -48,7 +48,7 @@ def predict_datapoint():
         
         inserting_data_mysql(mysql=cnx, data=data)
         
-        return render_template('home.html', results = model_result[0])
+        return render_template('prediction.html', number = model_result[0])
     
 @app.route('/train_model', methods=['GET', 'POST'])
 def model_training():
@@ -61,7 +61,7 @@ def model_training():
     count = cursor.fetchone()[0]
     cursor.close()
 
-    if count < 1:
+    if count < 15:
         return jsonify(status="error", message="Not enough data to train"), 400
 
     train_piepline = TrainingPipeline()

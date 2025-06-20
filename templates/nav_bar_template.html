@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prediction.css') }}">
+    <title>Student Performance Prediction</title>
+</head>
+<body>
+    <header id="main-header">
+        <div id="logo">
+            <p id="logo-head">
+                SPI
+            </p>
+            <p id="logo-small-text">
+                Student Performance Indicator
+            </p>
+        </div>
+        <nav id="nav-bar">
+            <ul id="nav-bar-list">
+                <li class="nav-list-point">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-list-point">
+                    <a href="{{ url_for('predict_datapoint') }}">Prediction</a>
+                </li>
+                <li class="nav-list-point">
+                    <a href="#">Model Training</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+    </footer>
+</body>
+</html>
