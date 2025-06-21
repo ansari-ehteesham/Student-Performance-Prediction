@@ -149,7 +149,7 @@ label {
 
 
 
-#selector-7{
+/* #selector-7{
     grid-column-start: 1;
     grid-column-end: 3;
     grid-row-start: 3;
@@ -161,7 +161,7 @@ label {
     grid-column-end: 4;
     grid-row-start: 3;
     grid-row-end: 4;
-}
+} */
 
 #submit-button{
     grid-column-start: 2;

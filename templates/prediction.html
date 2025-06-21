@@ -106,6 +106,17 @@
               />
             </div>
 
+            <div class="selector-div" id="selector-9">
+              <label for="model_selection">Model Versions</label>
+              <select name="model_selection" class="selector" required>
+                <option value="" selected disabled>--Select Your Model--</option>
+                <option value="default">Default Model</option>
+                {% for model in results.models_list %}
+                <option value="{{ model }}">{{ model }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
             <!-- Result Math Score Selector -->
             <div class="selector-div" id="selector-8">
               <label for="reading_score">Math Score(Out of 100)</label>
@@ -115,7 +126,7 @@
                 class="selector"
                 min="0"
                 max="100"
-                value="{{ number }}"
+                value="{{ results.number }}"
                 disabled
                 placeholder="Model Prediction"
                 id="my-number"

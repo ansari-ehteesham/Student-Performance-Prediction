@@ -21,8 +21,15 @@ def index():
 # prediction route
 @app.route("/prediction", methods=["GET", "POST"])
 def predict_datapoint():
+    pred_pipeline = PredictionPipeline()
+    model_list = pred_pipeline.trained_model_list
+    results = {
+            "number": None,
+            "models_list": model_list,
+        }
+
     if request.method == "GET":
-        return render_template('prediction.html')
+        return render_template('prediction.html', results = results)
     else:
         data = {
             "gender": request.form.get('gender'),
@@ -30,9 +37,11 @@ def predict_datapoint():
             "parental_level_of_education": request.form.get('parental_level_of_education'),
             "lunch": request.form.get('lunch'),
             "test_preparation": request.form.get('test_preparation_course'),
-            "reading_score": request.form.get('writing_score'),
-            "writing_score": request.form.get('reading_score')
+            "reading_score": request.form.get('reading_score'),
+            "writing_score": request.form.get('writing_score'),
         }
+
+        model_name = request.form.get('model_selection')
 
         columns = list(data.keys())
         values = [list(data.values())]
@@ -40,15 +49,15 @@ def predict_datapoint():
         df = convert_dataset_as_dataframe(dataset=values, column=columns)
 
         # prediction
-        pred_pipeline = PredictionPipeline()
-        model_result = pred_pipeline.prediction(df=df)
+        model_result = pred_pipeline.prediction(df=df, model = model_name)
         data["math_score"] = int(model_result)
 
         # giving data to the database to store it into table
-        
         inserting_data_mysql(mysql=cnx, data=data)
+
+        results["number"] = model_result[0]
         
-        return render_template('prediction.html', number = model_result[0])
+        return render_template('prediction.html', results = results)
     
 @app.route('/train_model', methods=['GET', 'POST'])
 def model_training():
