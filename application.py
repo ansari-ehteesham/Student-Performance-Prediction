@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, flash, redirect, jsonify, session, url_for
+import pandas as pd
+import os
 
 
 from src.utils import convert_dataset_as_dataframe, mysql_connection_establishment, inserting_data_mysql
@@ -9,6 +11,7 @@ from src.logger import logging
 application = Flask(__name__)
 
 app = application
+app.secret_key = os.getenv("SECRET_KEY")
 
 # Database Connection Establishment
 cnx = mysql_connection_establishment(database_name="student")
@@ -60,23 +63,63 @@ def predict_datapoint():
         return render_template('prediction.html', results = results)
     
 @app.route('/train_model', methods=['GET', 'POST'])
-def model_training():
-    # if someone GETs this URL directly, we'll just start training anyway
-    if not cnx.is_connected():
-        return jsonify(status="error", message="DB not connected"), 500
+def train_model():
+    if request.method == 'POST':
+        # —— CSV‐UPLOAD PATH —————————————————————————
+        if 'file' in request.files:
+            file = request.files['file']
+            if not file.filename:
+                flash("⚠️ Please select a CSV file.")
+                return redirect(request.url)
 
-    cursor = cnx.cursor()
-    cursor.execute("SELECT COUNT(*) FROM secondary_table")
-    count = cursor.fetchone()[0]
-    cursor.close()
+            df = pd.read_csv(file, encoding='ISO-8859-1').where(pd.notnull, None)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("SELECT * FROM secondary_table LIMIT 0")
+            db_cols = cursor.column_names
+            cursor.close()
 
-    if count < 1:
-        return jsonify(status="error", message="Not enough data to train"), 400
+            missing = set(db_cols) - set(df.columns)
+            extra   = set(df.columns) - set(db_cols)
+            if missing or extra:
+                parts = []
+                if missing: parts.append("Missing: " + ", ".join(sorted(missing)))
+                if extra:   parts.append("Unexpected: " + ", ".join(sorted(extra)))
+                flash("⚠️ Column mismatch — " + " | ".join(parts))
+                return render_template('training_model.html')
 
-    train_piepline = TrainingPipeline()
-    train_piepline.run(cnx)
+            for rec in df.to_dict(orient='records'):
+                inserting_data_mysql(mysql=cnx, data=rec)
 
-    return jsonify(status="success", message="Training completed")
+            session['csv_results'] = {
+                'rows': df.shape[0],
+                'columns': df.shape[1]
+            }
+            flash("✅ CSV uploaded and data inserted!")
+            return redirect(url_for('train_model'))
+
+        # —— NORMAL-TRAINING PATH —————————————————————————
+        elif request.form.get('mode') == 'train':
+            try:
+                pipeline = TrainingPipeline()
+                best_model_name, best_score = pipeline.run(cnx)
+                session['model_results'] = {
+                    'model_name': best_model_name,
+                    'score': best_score
+                }
+                return redirect(url_for('train_model'))
+            except Exception as e:
+                app.logger.exception("Training failed")
+                flash(f"⚠️ Training failed: {e}")
+                return redirect(url_for('train_model'))
+
+    # —— GET (or after redirect) —————————————————————————
+    csv_results   = session.pop('csv_results', None)
+    model_results = session.pop('model_results', None)
+    return render_template(
+        'training_model.html',
+        results=csv_results,
+        model_results=model_results
+    )
 
 
 

@@ -1,0 +1,178 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+#training-main-div {
+  height: 92vh;
+  width: 100%;
+  /* border: 1px solid black; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-div {
+  /* border: 2px solid red; */
+  height: 80%;
+  width: 60%;
+
+  display: grid;
+  gap: 0.7rem;
+
+  grid-template-rows: 2fr 1fr;
+  grid-template-columns: 1fr 2fr;
+}
+
+#database-selection {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  border: 2px solid black;
+}
+
+.file-uploader {
+  height: 2rem;
+  margin: 10px;
+      border: 1px solid grey;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.2s linear 0s;
+}
+
+.file-uploader:hover {
+  cursor: pointer;
+  box-shadow: 6px 7px 7px 0px black;
+  margin: 6px;
+}
+
+.file-uploader:hover p {
+  font-weight: bolder;
+}
+
+.file-uploader > p {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.file-uploader > p:hover {
+  font-weight: bolder;
+}
+
+#database-info {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* border: 2px solid red; */
+}
+
+.info-area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+}
+
+.csv-uploader-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+#file-handler {
+  display: flex;
+  gap: 3rem;
+  padding: 10px;
+}
+
+#csv-uploader {
+  display: flex;
+  flex-direction: column;
+}
+
+#upload-title {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+.upload-btn {
+  height: 2.5rem;
+  width: 8rem;
+  border-radius: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: normal;
+  border: 1px solid grey;
+
+  transition: all 0.3s linear 0s;
+}
+
+.upload-btn:hover {
+  cursor: pointer;
+  box-shadow: 6px 6px 10px 0px grey;
+  border: 1.5px solid black;
+  transform: scale(1.05);
+}
+
+.file-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+  height: 2.5rem;
+  width: 8rem;
+  border-radius: 1.5rem;
+  font-size: 0.9rem;
+  font-family: arial;
+  font-weight: normal;
+
+  transition: all 0.3s linear 0s;
+}
+
+.file-label:hover {
+  cursor: pointer;
+  box-shadow: 6px 6px 10px 0px grey;
+  border: 1.5px solid black;
+  transform: scale(1.05);
+}
+
+.file-input {
+  display: none;
+}
+
+#normal-training {
+  display: none;
+}
+
+#result-div {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  border: 2px solid black;
+}
+
+#train-status{
+  display: none;
+}

@@ -1,0 +1,85 @@
+{% extends 'nav_bar_template.html' %} {% block content %} {% with messages =
+get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for msg in messages %}
+  <li style="color: darkorange; font-weight: bold">{{ msg }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<main id="training-main-div">
+  <div class="main-div">
+    <!-- Mode Selection -->
+    <div id="database-selection">
+      <div class="file-uploader" id="mode-upload">
+        <p>Upload CSV File</p>
+      </div>
+      <div class="file-uploader" id="mode-train">
+        <p>Normal Training</p>
+      </div>
+    </div>
+
+    <div id="database-info">
+      <div class="info-area">
+        <!-- CSV Uploader Option-->
+        <section id="csv-uploader">
+          <!-- uploader title -->
+          <p id="upload-title">Upload a .csv File Here</p>
+          <!-- CSV Upload Form -->
+          <form
+            action="{{ url_for('train_model') }}"
+            method="post"
+            enctype="multipart/form-data"
+            class="csv-uploader-form"
+          >
+            <section id="file-handler">
+              <label for="file" class="file-label"> 📁 Select File </label>
+
+              <!-- input tage (invisible) -->
+              <input
+                type="file"
+                name="file"
+                accept=".csv"
+                class="file-input"
+                id="file"
+              />
+
+              <!-- Button for Submition of file -->
+              <input type="submit" value="Upload" class="upload-btn" disabled />
+            </section>
+
+            <!-- filename display -->
+            <p id="file-name"></p>
+          </form>
+        </section>
+
+        <!-- Model Training Option -->
+        <section id="normal-training">
+          <form action="{{ url_for('train_model') }}" method="post" id="train-form" onsubmit="document.getElementById('train-status').style.display='block';">
+            <!-- mark this as the train button -->
+            <input type="hidden" name="mode" value="train" />
+            <button type="submit" class="train-btn upload-btn">Start Training</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <div id="result-div">
+      {% if results %}
+      <p><b>Number of Rows -</b> {{ results.rows }}</p>
+      <p><b>Number of Columns -</b> {{ results.columns }}</p>
+      <p>
+        <b>Dataset has been Combined with the MySQL Database.</b>
+      </p>
+      {% endif %} {% if model_results %}
+      <p>
+        <b>Model Training has been Completed</b>
+      </p>
+      <p>Best Model Name - {{ model_results.model_name }}</p>
+      <p>Score - {{ model_results.score }}</p>
+      {% endif %}
+
+      <p id="train-status">🚀 Model training is in progress…</p>
+    </div>
+  </div>
+</main>
+{% endblock %}

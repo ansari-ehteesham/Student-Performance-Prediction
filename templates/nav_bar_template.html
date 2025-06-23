@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/prediction.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/model_training.css') }}">
     <title>Student Performance Prediction</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
                     <a href="{{ url_for('predict_datapoint') }}">Prediction</a>
                 </li>
                 <li class="nav-list-point">
-                    <a href="{{ url_for('model_training') }}">Model Training</a>
+                    <a href="{{ url_for('train_model') }}">Model Training</a>
                 </li>
             </ul>
         </nav>
@@ -38,4 +39,5 @@
     <footer>
     </footer>
 </body>
+<script src="{{ url_for('static', filename='js/training_model.js') }}"></script>
 </html>

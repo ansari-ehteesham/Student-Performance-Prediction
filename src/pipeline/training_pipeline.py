@@ -50,7 +50,9 @@ class TrainingPipeline:
         
         print("-"*25,"Model Training Started","-"*25)
         model_trainer = ModelTrainer()
-        best_model = model_trainer.initiate_model_training(train_arr=train_arr, test_arr=test_arr)
-        print("Best Model -",best_model)
+        best_model_name, best_model_score = model_trainer.initiate_model_training(train_arr=train_arr, test_arr=test_arr)
+        print("Best Model -",{best_model_name:best_model_score})
         print("-"*25,"Model Training Completed","-"*25)
+
+        return best_model_name, best_model_score
         

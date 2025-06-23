@@ -91,3 +91,4 @@ def inserting_data_mysql(mysql, data):
         mysql.commit()
         cursor.close()
         logging.info("Data has been uploaded to MySQL Database")
+        return None

@@ -96,6 +96,6 @@ class ModelTrainer:
                 obj=best_model
             )
 
-            return {best_model_name:best_model_score}
+            return best_model_name, best_model_score
         except Exception as e:
             raise CustomException(e, sys)
