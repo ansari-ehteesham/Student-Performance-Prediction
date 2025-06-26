@@ -1,0 +1,7 @@
+gender,race_ethnicity,parental_level_of_education,lunch,test_preparation,math_score,reading_score,writing_score
+female,group E,associate's degree,standard,none,85,92,85
+female,group C,bachelor's degree,free/reduced,completed,74,86,89
+female,group D,some college,standard,none,63,64,67
+male,group B,some high school,standard,completed,79,85,86
+female,group D,some high school,free/reduced,completed,40,65,64
+female,group C,some high school,free/reduced,completed,64,79,77

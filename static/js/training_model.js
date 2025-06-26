@@ -20,7 +20,7 @@ fileInput.addEventListener('change', function () {
     const file = fileInput.files[0]; // Get the first selected file
     if (file) {
       fileNameDisplay.textContent = `Selected file: ${file.name}`;
-      document.getElementById('upload-btn').disabled = false;
+      document.getElementById('submit-csv-btn').disabled = false;
     } else {
       fileNameDisplay.textContent = 'No file selected';
     }

@@ -36,7 +36,7 @@ def predict_datapoint():
     else:
         data = {
             "gender": request.form.get('gender'),
-            "race_ethnicity": request.form.get('ethnicity'),
+            "race_ethnicity": request.form.get('race_ethnicity'),
             "parental_level_of_education": request.form.get('parental_level_of_education'),
             "lunch": request.form.get('lunch'),
             "test_preparation": request.form.get('test_preparation_course'),

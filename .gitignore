@@ -195,3 +195,4 @@ cython_debug/
 
 # Extra Folders
 catboost_info/
+ssl_certificate/

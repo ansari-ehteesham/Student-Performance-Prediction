@@ -3,6 +3,7 @@ import sys
 import dill
 import pandas as pd
 import mysql.connector
+# from pathlib import Path
 from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 
@@ -17,12 +18,18 @@ def loading_env_varibales():
 def mysql_connection_establishment(database_name):
     try:
         loading_env_varibales()
-        cnx = mysql.connector.connect(
-            user = os.getenv("MYSQL_USER"),
-            password = os.getenv("MYSQL_PASSWORD"),
-            host="localhost",
-            database = database_name
-        )
+        config = {
+        'host' : str(os.getenv("MYSQL_HOST")),
+        'port' : int(int(os.getenv("MYSQL_PORT"))),
+        'user' : str(os.getenv("MYSQL_USER")),
+        'password' : str(os.getenv("MYSQL_PASSWORD")),
+        # 'ssl_ca' : os.getenv("MYSQL_SSL_CA"),
+        # 'ssl_verify_cert': True,
+        # 'ssl_disabled': True,
+        # 'ssl_verify_identity' :False,
+        'database':str(database_name)
+        }
+        cnx = mysql.connector.connect(**config)
         logging.info("Conection Established Succefullly with MySQL")
 
         return cnx
