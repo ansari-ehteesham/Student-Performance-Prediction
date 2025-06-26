@@ -99,11 +99,7 @@ The trained model provides quick predictions that can be used for educational as
    python application.py
    ```
 
-6. **Access the app** in your browser:
-
-   ```bash
-   [http://127.0.0.1:5000](http://127.0.0.1:5000)
-   ```
+6. **Access the app** in your browser
 
 ---
 
