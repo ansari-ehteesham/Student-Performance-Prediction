@@ -55,7 +55,7 @@ The trained model provides quick predictions that can be used for educational as
    pip install -r requirements.txt
    ```
 
-3. **Create an **\`\`** file** in the project root with the following variables:
+3. **Create an **`.env`** file** in the project root with the following variables:
 
    ```dotenv
    MYSQL_HOST=<your_mysql_host>
@@ -66,7 +66,7 @@ The trained model provides quick predictions that can be used for educational as
 
 4. **Prepare your database**
 
-   * Database name must be \`\`.
+   * Database name must be `student`.
    * Create two tables in `student` database:
 
      ```sql
